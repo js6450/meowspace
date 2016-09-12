@@ -25,6 +25,12 @@ function makeTwitterSearchRequest(){
 		},
 		success: function(data){
 			console.log(data);
+			var i;
+			for(i = 0; i < data.length; i++){
+				var vid_link = data[i]['extended_entities']['media'][0]['video_info']['variants'][0]['url'];
+				console.log(vid_link);
+				$("#display").append("<video src='" + vid_link + "' autoplay loop>");
+			}
 		}
 	});
 }
