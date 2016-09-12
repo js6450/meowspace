@@ -1,75 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8"/>
-		<link rel="stylesheet" type="text/css" href="style.css"/>
+<head>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="style.css"/>
 
-		<title>MeowSpace 2</title>
-	</head>
+	<title>MeowSpace 2</title>
+</head>
 
-	<body>
-		<h2 id="tweetText">MEOWSPACE 2.0</h2>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-		<script type="text/javascript" src="main.js"></script>
-		<script src="/jquery-latest.js"/></script>
-  		<script src="/jquery.min.js"/></script>
-  		<script charset="utf-8" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-		<script src="gif.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/p5.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/addons/p5.dom.js"></script>
-		<script src="sketch.js"></script>
-		<main>
-			<script>
-				var capture;
-				var recording = false;
-				var c;
-				var gif;
+<body>
+<h2 id="tweetText">MEOWSPACE 2.0</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<script src="/jquery-latest.js"/></script>
+<script src="/jquery.min.js"/></script>
+<script charset="utf-8" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="gif.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/p5.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/addons/p5.dom.js"></script>
+<script src="sketch.js"></script>
+<main>
+	<script>
+		var capture;
+		var recording = false;
+		var c;
+		var gif;
 
-				function setup() {
-					c = createCanvas(320, 240);
-					capture = createCapture(VIDEO);
-					capture.size(320, 240);
-					capture.hide();
-					setupGif();
-				}
+		function setup() {
+			c = createCanvas(320, 240);
+			capture = createCapture(VIDEO);
+			capture.size(320, 240);
+			capture.hide();
+			setupGif();
+		}
 
-				function draw() {
-					background(255);
-					image(capture, 0, 0, 320, 240);
+		function draw() {
+			background(255);
+			image(capture, 0, 0, 320, 240);
 
-					if (recording && frameCount % 3 == 0) {
-						gif.addFrame(c.elt, {delay: 1, copy: true});
-					}
-				}
+			if (recording && frameCount % 3 == 0) {
+				gif.addFrame(c.elt, {delay: 1, copy: true});
+			}
+		}
 
-				function keyPressed() {
-					recording = !recording;
-					if (!recording) {
-						gif.render();
-					}
-				}
+		function keyPressed() {
+			recording = !recording;
+			if (!recording) {
+				gif.render();
+			}
+		}
 
-				function setupGif() {
-					gif = new GIF({
-						workers: 2,
-						quality: 40
-					});
+		function setupGif() {
+			gif = new GIF({
+				workers: 2,
+				quality: 40
+			});
 
-					gif.on('finished', function(blob) {
-						var recorded_url = URL.createObjectURL(blob);
-						var array = recorded_url.split("/");
-						console.log(array[3]);
-						var json_obj = {url: array[3]};
-						saveData(json_obj);
+			gif.on('finished', function(blob) {
+				var recorded_url = URL.createObjectURL(blob);
+				var array = recorded_url.split("/");
+				console.log(array[3]);
+				var json_obj = {url: array[3]};
+				saveData(json_obj);
 //							window.open(URL.createObjectURL(blob));
-						//directly posting it on the current page
-						$("main").append("<img src='"+ recorded_url +"'>");
-						//you can also download the created gif!
+				//directly posting it on the current page
+				$("main").append("<img src='"+ recorded_url +"'>");
+				//you can also download the created gif!
 //						$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
-						var array = recorded_url.split("/");
-					});
-				}
-			</script>
-		</main>
-	</body>
+				var array = recorded_url.split("/");
+
+				setupGif();
+			});
+		}
+	</script>
+</main>
+</body>
 </html>
