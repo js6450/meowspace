@@ -21,10 +21,10 @@ var server = app.listen(port);
 console.log('Express started on port ' + port);
 
 //Do not share
-var TWITTER_CONSUMER_KEY;
-var TWITTER_CONSUMER_SECRET;
-var TWITTER_ACCESS_TOKEN_KEY;
-var TWITTER_ACCESS_SECRET;
+var TWITTER_CONSUMER_KEY = '1o2uiM3knaySjt3VYbs3xqQi2';
+var TWITTER_CONSUMER_SECRET = 'ZdoGKMAe8g8WPRjBBpKaBv4s9yJXdZlTwUJGkydGrWgnHnaW45';
+var TWITTER_ACCESS_TOKEN_KEY = '773006130121355264-d1jRul1mKDIJs373u6Y3fzIjMdWIZ7b';
+var TWITTER_ACCESS_SECRET = '1pCr9vdPqVhoq5AXQqyLab6W0zq7TYZYivUG5gXqI7GDn';
 
 var client = new Twitter({
 	consumer_key: TWITTER_CONSUMER_KEY,
