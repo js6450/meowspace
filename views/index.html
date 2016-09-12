@@ -57,13 +57,15 @@
 
 					gif.on('finished', function(blob) {
 						var recorded_url = URL.createObjectURL(blob);
-						var json_obj = {url: recorded_url};
+						var array = recorded_url.split("/");
+						console.log(array[3]);
+						var json_obj = {url: array[3]};
 						saveData(json_obj);
 //							window.open(URL.createObjectURL(blob));
 						//directly posting it on the current page
 						$("main").append("<img src='"+ recorded_url +"'>");
 						setupGif();
-						console.log(URL.createObjectURL(blob));
+						var array = recorded_url.split("/");
 					});
 				}
 			</script>
