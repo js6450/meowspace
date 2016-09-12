@@ -64,7 +64,8 @@
 //							window.open(URL.createObjectURL(blob));
 						//directly posting it on the current page
 						$("main").append("<img src='"+ recorded_url +"'>");
-						setupGif();
+						//you can also download the created gif!
+//						$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
 						var array = recorded_url.split("/");
 					});
 				}
