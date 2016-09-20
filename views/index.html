@@ -63,16 +63,28 @@
 
 				console.log(blob);
 				console.log("recourded_url:" + recorded_url);
+
 				
-				var array = recorded_url.split("/");
-				console.log(array[3]);
-				var json_obj = {url: array[3]};
-				saveData(json_obj);
+//				var array = recorded_url.split("/");
+//				console.log(array[3]);
+//				var json_obj = {url: array[3]};
+//				saveData(json_obj);
 				//directly posting it on the current page - disable line below later
 				$("main").append("<img src='"+ recorded_url +"'>");
 				//you can also download the created gif!
 				$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
-				var array = recorded_url.split("/");
+
+				var formData = new FormData();
+				formData.append(recorded_url, 'gif.gif');
+
+				$.ajax({
+					url: 'upload.php',
+					data: formData,
+					processData: false,
+					contentType: false,
+					type: 'POST',
+					success: console.log("Success")
+				});
 
 				setupGif();
 			});
