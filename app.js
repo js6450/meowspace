@@ -2,6 +2,7 @@
 var express = require("express"),
 bodyParser = require('body-parser'),
 errorHandler = require('errorhandler'),
+multer  = require('multer'),
 Twitter = require('twitter'),
 Twit = require('twit'),
 fs = require('fs'),
@@ -17,14 +18,18 @@ app.use(express.static(__dirname + '/public'));
 app.use(favicon(__dirname + '/public/media/favicon.ico'));
 app.use(bodyParser.json());
 app.use(errorHandler());
+//app.use(express.static('public'));
+//app.use(bodyParser.urlencoded({ extended: false }));
+var upload = multer({ dest: '/tmp/upload' })
+
 var server = app.listen(port);
 console.log('Express started on port ' + port);
 
 //Do not share
-var TWITTER_CONSUMER_KEY = '';
-var TWITTER_CONSUMER_SECRET = '';
-var TWITTER_ACCESS_TOKEN_KEY = '';
-var TWITTER_ACCESS_SECRET = '';
+var TWITTER_CONSUMER_KEY = '1o2uiM3knaySjt3VYbs3xqQi2';
+var TWITTER_CONSUMER_SECRET = 'ZdoGKMAe8g8WPRjBBpKaBv4s9yJXdZlTwUJGkydGrWgnHnaW45';
+var TWITTER_ACCESS_TOKEN_KEY = '773006130121355264-d1jRul1mKDIJs373u6Y3fzIjMdWIZ7b';
+var TWITTER_ACCESS_SECRET = '1pCr9vdPqVhoq5AXQqyLab6W0zq7TYZYivUG5gXqI7GDn';
 
 var client = new Twitter({
 	consumer_key: TWITTER_CONSUMER_KEY,
@@ -49,13 +54,17 @@ app.get("/search", function(req, res){
 		if (error){
 			throw error;
 		}
-		console.log(tweets[0]);
-		var theTweet = {'tweet': tweets[0]};
+		//console.log(tweets);
+		var theTweet = tweets;
 		res.json(theTweet);
 	});
 });
 
 /*-----Here we post gifs-----*/
+
+app.post('/dat', upload.single('giffu'), function (req, res, next) {
+  console.log('Uploaded Image');
+})
 
 app.post("/save", function(req, res){
 	console.log("Saving...");
