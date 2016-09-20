@@ -73,18 +73,22 @@
 				$("main").append("<img src='"+ recorded_url +"'>");
 				//you can also download the created gif!
 				$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
+//
+//				var formData = new FormData();
+//				formData.append(recorded_url, 'gif.gif');
 
-				var formData = new FormData();
-				formData.append(recorded_url, 'gif.gif');
-
-				$.ajax({
-					url: 'upload.php',
-					data: formData,
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					success: console.log("Success")
+				$.post('localhost:3000/upload.php', {file: recorded_url}, function(result){
+					alert(result);
 				});
+
+//				$.ajax({
+//					url: 'upload.php',
+//					data: recorded_url,
+//					processData: false,
+//					contentType: false,
+//					type: 'POST',
+//					success: console.log("Success")
+//				});
 
 				setupGif();
 			});
