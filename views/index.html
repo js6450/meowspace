@@ -56,16 +56,22 @@
 			});
 
 			gif.on('finished', function(blob) {
+
+
 				var recorded_url = URL.createObjectURL(blob);
+				var test = URL.revokeObjectURL(blob);
+
+				console.log(blob);
+				console.log("recourded_url:" + recorded_url);
+				
 				var array = recorded_url.split("/");
 				console.log(array[3]);
 				var json_obj = {url: array[3]};
 				saveData(json_obj);
-//							window.open(URL.createObjectURL(blob));
-				//directly posting it on the current page
+				//directly posting it on the current page - disable line below later
 				$("main").append("<img src='"+ recorded_url +"'>");
 				//you can also download the created gif!
-//						$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
+				$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
 				var array = recorded_url.split("/");
 
 				setupGif();
