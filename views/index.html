@@ -74,7 +74,6 @@
 				//you can also download the created gif!
 				$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
 //
-<<<<<<< HEAD
 				var formData = new FormData();
 				formData.append(recorded_url, 'gif.gif');
 
@@ -88,24 +87,6 @@
 					success: console.log("Success")
 				});
 
-=======
-//				var formData = new FormData();
-//				formData.append(recorded_url, 'gif.gif');
-
-				$.post('localhost:3000/upload.php', {file: recorded_url}, function(result){
-					alert(result);
-				});
-
-//				$.ajax({
-//					url: 'upload.php',
-//					data: recorded_url,
-//					processData: false,
-//					contentType: false,
-//					type: 'POST',
-//					success: console.log("Success")
-//				});
-
->>>>>>> origin/master
 				setupGif();
 			});
 		}

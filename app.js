@@ -54,11 +54,7 @@ app.get("/search", function(req, res){
 		if (error){
 			throw error;
 		}
-<<<<<<< HEAD
 		//console.log(tweets);
-=======
-		console.log(tweets);
->>>>>>> origin/master
 		var theTweet = tweets;
 		res.json(theTweet);
 	});
