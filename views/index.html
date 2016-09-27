@@ -59,10 +59,10 @@
 
 
 				var recorded_url = URL.createObjectURL(blob);
-				var test = URL.revokeObjectURL(blob);
+				//var test = URL.revokeObjectURL(blob);
 
 				console.log(blob);
-				console.log("recourded_url:" + recorded_url);
+				console.log("recorded_url:" + recorded_url);
 
 				
 //				var array = recorded_url.split("/");
@@ -75,7 +75,7 @@
 				$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
 //
 				var formData = new FormData();
-				formData.append(recorded_url, 'gif.gif');
+				formData.append("giffu", blob);
 
 
 				$.ajax({

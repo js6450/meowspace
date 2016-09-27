@@ -63,23 +63,22 @@ app.get("/search", function(req, res){
 /*-----Here we post gifs-----*/
 
 app.post('/dat', upload.single('giffu'), function (req, res, next) {
-  console.log('Uploaded Image');
-})
-
-app.post("/save", function(req, res){
-	console.log("Saving...");
+	location = req.file.path;
+	console.log('Uploaded Image');
+	//console.log(location);
+	console.log("Saving to twitter...");
 	var T = new Twit({
 		consumer_key: TWITTER_CONSUMER_KEY,
 		consumer_secret: TWITTER_CONSUMER_SECRET,
 		access_token: TWITTER_ACCESS_TOKEN_KEY,
 		access_token_secret: TWITTER_ACCESS_SECRET
 	});
-	var b64content = fs.readFileSync('./giffo.gif', { encoding: 'base64' })
+	var b64content = fs.readFileSync(location, { encoding: 'base64' })
 // post media on twitter
 	T.post('media/upload', { media_data: b64content }, function (err, data, response) {
 // reference media and post a tweet
 		var mediaIdStr = data.media_id_string
-		var params = { status: 'loving life #nofilter', media_ids: [mediaIdStr] }
+		var params = { status: '#shanghai #nyu #gif #ima', media_ids: [mediaIdStr] }
 		T.post('statuses/update', params, function (err, data, response) {
 			console.log(data)
 		})
