@@ -50,13 +50,14 @@ function makeTwitterSearchRequest(){
 					$(".row-3").append("<video class='meow_gifs' id='" + i +"' src='" + vid_link + "' autoplay loop>");
 
 				}
+				if(i == 3){
+					$(canvas).appendTo($(".row-2"));
+				}
 				// $("main").append("<video class='meow_gifs' id='" + i +"' src='" + vid_link + "' autoplay loop>");
 				if(i == 2 || i == 4 || i == 7) {
 					$("main").append("</div>");
 				}
 			}
-			$(canvas).appendTo($(".row-2"));
-			$('#4').css("float", "right");
 		}
 	});
 }
