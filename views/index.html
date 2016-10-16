@@ -19,6 +19,20 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/addons/p5.dom.js"></script>
 <script src="sketch.js"></script>
 <main>
+	<style>
+		main{
+			position: absolute;
+			width: 100%;
+		}
+		.row-1, .row-2, .row-3{
+			position: relative;
+			display: inline-block;
+		}
+		.meow_gifs{
+			width: 33%;
+		}
+
+	</style>
 	<script>
 		var capture;
 		var recording = false;
@@ -89,6 +103,7 @@
 
 				setupGif();
 			});
+
 		}
 	</script>
 </main>
