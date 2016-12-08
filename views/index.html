@@ -8,108 +8,67 @@
 </head>
 
 <body>
-<h2 id="tweetText">MEOWSPACE 2.0</h2>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
-<script src="/jquery-latest.js"/></script>
-<script src="/jquery.min.js"/></script>
 <script charset="utf-8" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <script src="gif.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/p5.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.3.11/addons/p5.dom.js"></script>
-<script src="sketch.js"></script>
-<main>
-	<style>
-		main{
-			position: absolute;
-			width: 100%;
-		}
-		.row-1, .row-2, .row-3{
-			position: relative;
-			display: inline-block;
-		}
-		.meow_gifs{
-			width: 33%;
-		}
-		canvas{
-			width: 33% !important;
-			height: auto !important;
-		}
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="sketch.js"></script>
 
-	</style>
-	<script>
-		var capture;
-		var recording = false;
-		var c;
-		var gif;
+<style>
+	body{
+		margin: 0;
+		overflow: hidden;
+	}
+	main{
+		position: absolute;
+		width: 100%;
+	}
+	.row-0, .row-1, .row-2, .row-3{
+		position: relative;
+		display: inline-block;
+	}
+	canvas{
+		width: 32vw !important;
+		height: auto !important;
+		position: relative;
+		z-index: 999;
 
-		function setup() {
-			c = createCanvas(320, 240);
-			capture = createCapture(VIDEO);
-			capture.size(320, 240);
-			capture.hide();
-			setupGif();
-		}
+		-webkit-animation-name: rotate;
+		-webkit-animation-duration: 20s;
+		-webkit-animation-iteration-count: 100;
+		animation-name: rotate;
+		animation-duration: 20s;
+		animation-iteration-count: 100;
+	}
 
-		function draw() {
-			background(255);
-			image(capture, 0, 0, 320, 240);
+	@-webkit-keyframes rotate {
+		0%   {left:0px; top:0px;}
+		12%  {left:68vw; top:0px;}
+		24%  {left:68vw; top:53vh;}
+		36%  {left:0px; top:53vh;}
+		48%  {left:0px; top:0px;}
+		60%  {left:68vw; top:53vh;}
+		72%  {left:68vw; top:0px;}
+		84%  {left:0px; top:53vh;}
+		100% {left:0px; top:0px;}
+	}
 
-			if (recording && frameCount % 3 == 0) {
-				gif.addFrame(c.elt, {delay: 1, copy: true});
-			}
-		}
+	/* Standard syntax */
+	@keyframes rotate {
+		0%   {left:0px; top:0px;}
+		12%  {left:68vw; top:0px;}
+		24%  {left:68vw; top:53vh;}
+		36%  {left:0px; top:53vh;}
+		48%  {left:0px; top:0px;}
+		60%  {left:68vw; top:53vh;}
+		72%  {left:68vw; top:0px;}
+		84%  {left:0px; top:53vh;}
+		100% {left:0px; top:0px;}
+	}
 
-		function keyPressed() {
-			recording = !recording;
-			if (!recording) {
-				gif.render();
-			}
-		}
-
-		function setupGif() {
-			gif = new GIF({
-				workers: 2,
-				quality: 40
-			});
-
-			gif.on('finished', function(blob) {
-
-
-				var recorded_url = URL.createObjectURL(blob);
-				//var test = URL.revokeObjectURL(blob);
-
-				console.log(blob);
-				console.log("recorded_url:" + recorded_url);
-
-				
-//				var array = recorded_url.split("/");
-//				console.log(array[3]);
-//				var json_obj = {url: array[3]};
-//				saveData(json_obj);
-				//directly posting it on the current page - disable line below later
-				$("main").append("<img src='"+ recorded_url +"'>");
-				//you can also download the created gif!
-				$("main").append("<a href='"+ recorded_url +"' download>Download</a>");
-//
-				var formData = new FormData();
-				formData.append("giffu", blob);
-
-
-				$.ajax({
-					url: '/dat',
-					data: formData,
-					processData: false,
-					contentType: false,
-					type: 'POST',
-					success: console.log("Success")
-				});
-
-				setupGif();
-			});
-
-		}
-	</script>
-</main>
+</style>
+<main></main>
 </body>
 </html>

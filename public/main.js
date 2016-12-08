@@ -16,7 +16,9 @@ function saveData(obj){
 }
 
 function makeTwitterSearchRequest(){
-	var main_img_num = 8;
+	var num_row = 4;
+	var num_col = 6;
+	var main_img_num = num_row * num_col;
 
 	$.ajax({
 		url: '/search',
@@ -27,37 +29,24 @@ function makeTwitterSearchRequest(){
 		},
 		success: function(data){
 			// console.log(data);
-			var i;
-			for(i = 0; i < main_img_num; i++){
-				var vid_link = data[i]['extended_entities']['media'][0]['video_info']['variants'][0]['url'];
-				console.log(vid_link);
-				if(i == 0){
-					$("main").append("<div class='row-1'>");
-				}
-				if(i == 3){
-					$("main").append("<div class='row-2'>");
-				}
-				if(i == 5){
-					$("main").append("<div class='row-3'>");
-				}
-				if(i >= 0 && i < 3){
-					$(".row-1").append("<video class='meow_gifs' id='" + i +"' src='" + vid_link + "' autoplay loop>");
-				}
-				else if(i == 3 || i == 4){
-					$(".row-2").append("<video class='meow_gifs' id='" + i +"' src='" + vid_link + "' autoplay loop>");
-				}
-				else{
-					$(".row-3").append("<video class='meow_gifs' id='" + i +"' src='" + vid_link + "' autoplay loop>");
+			console.log(data.length);
+			var index = 0;
 
+			for(var i = 0; i < num_row; i++){
+				$("main").append("<div class='row-" + i + "'>");
+				for(var j = 0; j < num_col; j++){
+					var vid_link = data[index]['extended_entities']['media'][0]['video_info']['variants'][0]['url'];
+					console.log(vid_link);
+
+					$(".row-" + i).append("<video class='meow_gifs' id='" + index +"' src='" + vid_link + "' autoplay loop>");
+					$("#" + index).css("z-index", "-999");
+					$("#" + index).css("width", 100 / num_col + "%");
+
+					index++;
 				}
-				if(i == 3){
-					$(canvas).appendTo($(".row-2"));
-				}
-				// $("main").append("<video class='meow_gifs' id='" + i +"' src='" + vid_link + "' autoplay loop>");
-				if(i == 2 || i == 4 || i == 7) {
-					$("main").append("</div>");
-				}
+				$("main").append("</div>");
 			}
+
 		}
 	});
 }

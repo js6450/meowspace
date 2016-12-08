@@ -40,7 +40,8 @@ var client = new Twitter({
 
 
 var params = {
-	user_id: '773006130121355264'//required for latest post
+	user_id: '773006130121355264',//required for latest post
+	count: 24
 };
 
 //ROUTES
