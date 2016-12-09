@@ -2,6 +2,7 @@ var capture;
 var recording = false;
 var c;
 var gif;
+var reload = 0;
 
 var countFrame = 0;
 
@@ -92,12 +93,20 @@ function setupGif() {
             processData: false,
             contentType: false,
             type: 'POST',
-            success: setTimeout(function(){
+            success: function(res){
                 console.log("finished rendering");
-                location.reload();
-            }, 15000)
+                reload = res.body;
+                console.log(reload);
+                //location.reload();
+            }
         });
         setupGif();
+
+        if(reload = 1){
+
+            window.location.reload();
+        }
+
     });
 
 }

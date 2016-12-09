@@ -83,13 +83,13 @@ app.post('/dat', upload.single('giffu'), function (req, res, next) {
 		T.post('statuses/update', params, function (err, data, response) {
 			console.log(data);
 			// res.redirect(req.get('referer'));
-			// setTimeout(function(){
-			// 	console.log("refreshing page...")
-			// 	res.render('index');
-			// }, 1000);
+
 			// res.redirect("/");
-		})
-	})
+		});
+	});
+	setTimeout(function(){
+		res.json({body:1});
+	}, 5000);
 });
 
 
