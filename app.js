@@ -81,7 +81,13 @@ app.post('/dat', upload.single('giffu'), function (req, res, next) {
 		var mediaIdStr = data.media_id_string
 		var params = { status: '#shanghai #nyu #gif #ima', media_ids: [mediaIdStr] }
 		T.post('statuses/update', params, function (err, data, response) {
-			console.log(data)
+			console.log(data);
+			// res.redirect(req.get('referer'));
+			// setTimeout(function(){
+			// 	console.log("refreshing page...")
+			// 	res.render('index');
+			// }, 1000);
+			// res.redirect("/");
 		})
 	})
 });

@@ -9,7 +9,8 @@ var status = "MEOW!";
 
 function setup() {
     colorMode(HSB);
-    c = createCanvas(340, 260);
+    noStroke();
+    c = createCanvas(400, 320);
     capture = createCapture(VIDEO);
     capture.size(320, 240);
     capture.hide();
@@ -17,8 +18,17 @@ function setup() {
 }
 
 function draw() {
-    background(frameCount & 255, 255, 255);
-    image(capture, 10, 10, 320, 240);
+    background(255, 0);
+    fill(frameCount & 255, 255, 255);
+    rect(30, height-260, width- 60, height);
+    triangle(30, 0, 30, height-260, 120, height-260);
+    triangle(width-30, 0, width-30, height-260, width - 120, height-260);
+    push();
+    translate(capture.width + 20, 0);
+    scale(-1, 1);
+    image(capture, -12.5, height - 250, 307.5, 240);
+
+    pop();
 
     if (recording && frameCount % 3 == 0 && countFrame <= 20) {
         gif.addFrame(c.elt, {delay: 1, copy: true});
@@ -27,7 +37,7 @@ function draw() {
     }
     else if(countFrame > 20){
         countFrame = 0;
-        status = "MEOW!";
+        status = "RENDERING";
         recording = !recording;
         if (!recording) {
             gif.render();
@@ -36,9 +46,9 @@ function draw() {
 
     noStroke();
     fill(frameCount & 255, 255, 255);
-    textSize(12);
+    textSize(32);
     textFont("Helvetica");
-    text(status, width/2 - 20, height/2);
+    text(status, width/2 - textWidth(status) / 2, height/2 + 50 - 18);
 }
 
 function keyPressed() {
@@ -59,8 +69,8 @@ function setupGif() {
         var recorded_url = URL.createObjectURL(blob);
         //var test = URL.revokeObjectURL(blob);
 
-        console.log(blob);
-        console.log("recorded_url:" + recorded_url);
+        // console.log(blob);
+        // console.log("recorded_url:" + recorded_url);
 
 //				var array = recorded_url.split("/");
 //				console.log(array[3]);
@@ -74,6 +84,8 @@ function setupGif() {
         var formData = new FormData();
         formData.append("giffu", blob);
 
+        status = "MEOW!";
+
         $.ajax({
             url: '/dat',
             data: formData,
@@ -81,8 +93,9 @@ function setupGif() {
             contentType: false,
             type: 'POST',
             success: setTimeout(function(){
+                console.log("finished rendering");
                 location.reload();
-            }, 5000)
+            }, 15000)
         });
         setupGif();
     });
