@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(errorHandler());
 //app.use(express.static('public'));
 //app.use(bodyParser.urlencoded({ extended: false }));
-var upload = multer({ dest: '/tmp/upload' })
+var upload = multer({ dest: '/tmp/upload' });
 
 var server = app.listen(port);
 console.log('Express started on port ' + port);
@@ -74,12 +74,12 @@ app.post('/dat', upload.single('giffu'), function (req, res, next) {
 		access_token: TWITTER_ACCESS_TOKEN_KEY,
 		access_token_secret: TWITTER_ACCESS_SECRET
 	});
-	var b64content = fs.readFileSync(location, { encoding: 'base64' })
+	var b64content = fs.readFileSync(location, { encoding: 'base64' });
 // post media on twitter
 	T.post('media/upload', { media_data: b64content }, function (err, data, response) {
 // reference media and post a tweet
-		var mediaIdStr = data.media_id_string
-		var params = { status: '#shanghai #nyu #gif #ima', media_ids: [mediaIdStr] }
+		var mediaIdStr = data.media_id_string;
+		var params = { status: '#shanghai #nyu #gif #ima', media_ids: [mediaIdStr] };
 		T.post('statuses/update', params, function (err, data, response) {
 			console.log(data);
 			// res.redirect(req.get('referer'));
@@ -87,9 +87,10 @@ app.post('/dat', upload.single('giffu'), function (req, res, next) {
 			// res.redirect("/");
 		});
 	});
+	console.log("setting timeout");
 	setTimeout(function(){
 		res.json({body:1});
-	}, 5000);
+	}, 20000);
 });
 
 

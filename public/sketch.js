@@ -103,7 +103,6 @@ function setupGif() {
         setupGif();
 
         if(reload = 1){
-
             window.location.reload();
         }
 

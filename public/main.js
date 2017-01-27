@@ -35,12 +35,19 @@ function makeTwitterSearchRequest(){
 			for(var i = 0; i < num_row; i++){
 				$("main").append("<div class='row-" + i + "'>");
 				for(var j = 0; j < num_col; j++){
-					var vid_link = data[index]['extended_entities']['media'][0]['video_info']['variants'][0]['url'];
-					console.log(vid_link);
 
-					$(".row-" + i).append("<video class='meow_gifs' id='" + index +"' src='" + vid_link + "' autoplay loop>");
-					$("#" + index).css("z-index", "-999");
-					$("#" + index).css("width", 100 / num_col + "%");
+					var vid_link = data[index]['extended_entities']['media'][0]['video_info']['variants'][0]['url'];
+
+					if(vid_link != null) {
+						console.log(vid_link);
+
+						$(".row-" + i).append("<video class='meow_gifs' id='" + index + "' src='" + vid_link + "' autoplay loop>");
+						$("#" + index).css("z-index", "-999");
+						$("#" + index).css("width", 100 / num_col + "%");
+					}
+					else{
+
+					}
 
 					index++;
 				}
